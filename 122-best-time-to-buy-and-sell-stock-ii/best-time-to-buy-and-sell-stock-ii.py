@@ -3,7 +3,7 @@ class Solution:
         i = j = 0
         profit = 0
         for k in range(1, len(prices)):
-            if prices[k] > prices[i] and prices[k] > prices[j]:
+            if prices[k] > prices[j]:
                 j += 1
             else:
                 profit += (prices[j] - prices[i])
