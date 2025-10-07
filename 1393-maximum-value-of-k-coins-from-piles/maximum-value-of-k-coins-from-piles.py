@@ -2,7 +2,10 @@ class Solution:
     def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
         n = len(piles)
         dp = [[-1] * (k+1) for _ in range(n)]
-
+        
+        # len(piles) * k calls - even more than that but cache will be hit and retruned immediately.
+        # But the other times there is a loop and assuming each pile has an average length of x
+        # TC = len(piles) * k * x
         def dfs(i, remain):
             # Base Case:
             if i == n:
