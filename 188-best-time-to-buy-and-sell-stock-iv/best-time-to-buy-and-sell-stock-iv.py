@@ -1,13 +1,13 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         n = len(prices)
-        dp = [[[float('-inf')] * (k + 1) for _ in range(2)] for _ in range(n)]
+        dp = [[[0] * (k + 1) for _ in range(2)] for _ in range(n)]
 
         def dfs(i, holding, remain):
             if i == n or remain == 0:
                 return 0
             
-            if dp[i][holding][remain] != float('-inf'):
+            if dp[i][holding][remain] != 0:
                 return dp[i][holding][remain]
             
             dp[i][holding][remain] = dfs(i+1, holding, remain)
