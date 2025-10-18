@@ -5,10 +5,13 @@ class Solution:
 
         # Depth First Search of a Node
         def dfs(node):
-            for neighbor in graph[node]:
-                if neighbor not in seen:
-                    seen.add(neighbor)
-                    dfs(neighbor)
+            stack = [node]
+            while stack:
+                node = stack.pop()
+                for neighbor in graph[node]:
+                    if neighbor not in seen:
+                        seen.add(neighbor)
+                        stack.append(neighbor)
 
         # Create an adjacency list for traversal
         graph = defaultdict(list)
