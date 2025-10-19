@@ -14,6 +14,7 @@ class Solution:
                 if isvalid(nextrow, nextcol) and (nextrow, nextcol) not in seen:
                     seen.add((nextrow, nextcol))
                     dfs(nextrow, nextcol)
+                    
         count = 0
         for row in range(m):
             for col in range(n):
