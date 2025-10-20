@@ -8,8 +8,8 @@
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         graph = defaultdict(list)
-        tar = target.val
         
+        # Construct the Graph representation of the tree
         def dfs(root):
             if root is None:
                 return 
@@ -25,20 +25,18 @@ class Solution:
 
         dfs(root)
 
-        for x in graph:
-            print(graph[x])
-
-        seen = {tar}
-        queue = deque([(tar, 0)])
+        # Breadth First Traversal of the Graph
+        target = target.val
+        seen = {target}
+        queue = deque([(target, 0)])
         ans= []
 
         while queue:
             node, depth = queue.popleft()
             if depth == k:
                 ans.append(node)
-            if depth > k:
-                break
-            
+                continue
+                
             for neighbor in graph[node]:
                 if neighbor not in seen:
                     seen.add(neighbor)
