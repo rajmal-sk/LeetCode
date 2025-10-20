@@ -8,7 +8,7 @@ class Solution:
         directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
         def valid(row, col):
-            return 0 <= row < n and 0<= col < n and grid[row][col] == 0
+            return 0 <= row < n and 0<= col < n and grid[row][col] == 0 and (row, col) not in visited
         
         n = len(grid)
         depth = 0
