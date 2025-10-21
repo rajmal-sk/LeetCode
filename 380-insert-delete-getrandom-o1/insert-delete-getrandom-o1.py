@@ -2,7 +2,6 @@ class RandomizedSet:
 
     def __init__(self):
         self.mp = defaultdict()
-        print(self.mp)
 
     def insert(self, val: int) -> bool:
         if self.mp.get(val) is not None:
