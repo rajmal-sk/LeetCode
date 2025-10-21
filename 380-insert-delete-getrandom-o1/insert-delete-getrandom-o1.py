@@ -1,26 +1,29 @@
 class RandomizedSet:
 
     def __init__(self):
-        self.mp = defaultdict()
+        self.dict = {}
+        self.list = []
 
     def insert(self, val: int) -> bool:
-        if self.mp.get(val) is not None:
+        if val in self.dict:
             return False
-        else:
-            self.mp[val] = True
-            # arr.append(val)
-            return True
+        
+        self.dict[val] = len(self.list)
+        self.list.append(val)
+        return True
 
     def remove(self, val: int) -> bool:
-        if self.mp.get(val) is None:
+        if val not in self.dict:
             return False
-        else:
-            del self.mp[val]
-            return True
+        
+        last_element, idx = self.list[-1], self.dict[val]
+        self.list[idx], self.dict[last_element] = last_element, idx
+        self.list.pop()
+        del self.dict[val]
+        return True
 
     def getRandom(self) -> int:
-        keys = list(self.mp.keys())
-        return random.choice(keys)
+        return choice(self.list)
         
 
 
