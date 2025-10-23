@@ -3,12 +3,11 @@ class Solution:
         res = ""
 
         def expand(left, right):
-            l, r = left, right
-            while l >=0 and r < len(s) and s[l] == s[r]:
-                l -= 1
-                r += 1
+            while left >=0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
             
-            return s[l + 1: r]
+            return s[left + 1: right]
 
 
         for i in range(len(s)):
