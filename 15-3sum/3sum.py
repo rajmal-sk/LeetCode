@@ -2,8 +2,12 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         res = set()
-        nums = sorted(nums)
 
+        # Python uses a version of TimSort which takes O(NLogN) - TC and 
+        nums.sort()
+        
+        # Take O(N) time complexity - Since we are doing a single pass to
+        # identify all the valid pairs
         def twoSum(left, right, target) ->  List[List[int]]:
             pairs = []
             while(left < right):
