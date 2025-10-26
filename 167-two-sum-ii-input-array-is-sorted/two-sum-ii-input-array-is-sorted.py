@@ -1,13 +1,8 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        left = 0
-        right = len(numbers) - 1
-        while left < right:
-            sum = numbers[left] + numbers[right]
-            if sum > target:
-                right -= 1
-            elif sum < target:
-                left += 1
-            else:
-                break
-        return [left + 1, right + 1]
+        mp = {}
+        for i in range(len(numbers)):
+            complement = target - numbers[i]
+            if complement in mp:
+                return [mp[complement], i + 1]
+            mp[numbers[i]] = i + 1
