@@ -1,24 +1,23 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
+        # Intution: For each index i the amount of water that can be stored equals 
+        # min(leftMax, rightMax) - height[i]
+        # leftMax - represents the highest point on the left of the index i
+        # rightMax - represents the highest point on the right of the index i
         n = len(height)
-        leftMax = [0] * n
-        rightMax = [0] * n
+        left, right = 0, n - 1
+        leftMax = rightMax = water = 0 
 
-        maxi = float('-inf')
-        for i in range(n):
-            leftMax[i] = max(maxi, height[i])
-            maxi = max(maxi, height[i])
+        while left < right:
+            if height[left] < height[right]:
+                leftMax = max(leftMax, height[left])
+                water += (leftMax - height[left])
+                left += 1
+            else:
+                rightMax = max(rightMax, height[right])
+                water += (rightMax - height[right])
+                right -= 1
+       
         
-        maxi = float('-inf')
-        for i in range(n-1, -1, -1):
-            rightMax[i] = max(maxi, height[i])
-            maxi = max(maxi, height[i])
-        
-        waterContent = 0
-
-        for i in range(n):
-            capacity = min(leftMax[i], rightMax[i]) - height[i]
-            waterContent += capacity
-        
-        return waterContent
+        return water
         
