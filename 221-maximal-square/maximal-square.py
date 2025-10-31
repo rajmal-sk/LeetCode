@@ -4,16 +4,23 @@ class Solution:
         cols = len(matrix[0]) if rows else 0
         maxSqLen = 0
 
-        dp =[0] * (cols + 1)
-        prev = 0
-        for i in range(1, rows + 1):
-            for j in range(1, cols + 1):
-                temp = dp[j]
-                if matrix[i - 1][j - 1] == "1":
-                    dp[j] = min(dp[j-1], prev, dp[j]) + 1
-                    maxSqLen = max(maxSqLen, dp[j])
-                else:
-                    dp[j] = 0
-                prev = temp
+        cache = {}
 
-        return maxSqLen * maxSqLen
+        def recursive(r , c):
+            if r >= rows or c >= cols:
+                return 0
+            
+            if (r, c ) not in cache:
+                down = recursive(r + 1, c)
+                right = recursive(r, c + 1)
+                diag = recursive(r + 1, c + 1)
+
+                cache[(r, c)] = 0
+                if matrix[r][c] == "1":
+                    cache[(r, c)] = 1 + min (down, right, diag)
+            
+            return cache[(r, c)]
+        
+        recursive(0, 0)
+        maxSqLen = max(cache.values()) ** 2
+        return maxSqLen
