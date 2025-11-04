@@ -1,11 +1,12 @@
 class Solution:
     def getSneakyNumbers(self, nums: List[int]) -> List[int]:
-        mp = Counter(nums)
-        res = []
+        n = len(nums) - 2
+        sum_ = sum(nums)
+        squared_sum = sum(x * x for x in nums)
+        c = sum_ - (n * (n - 1)) // 2
+        d = squared_sum - (n * (n - 1) * (2 * n - 1)) // 6
 
-        for key, value in mp.items():
-            if value == 2:
-                res.append(key)
+        x1 = (c - math.sqrt(2 * d - (c * c)) ) / 2
+        x2 = (c + math.sqrt(2 * d - (c * c)) ) / 2
 
-
-        return res
+        return[int(x1), int(x2)]
