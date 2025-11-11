@@ -31,23 +31,22 @@ class Trie:
             node = node.get(ch)
         node.set_end()
 
-    def search(self, word: str) -> bool:
+    def search_prefix(self, word:str) -> 'TrieNode':
         node = self.root
         for ch in word:
-            if not node.contains_key(ch):
-                return False
-            node = node.get(ch)
-        
-        return node.is_end()
+            if node.contains_key(ch):
+                node = node.get(ch)
+            else:
+                return None
+        return node
+
+    def search(self, word: str) -> bool:
+        node = self.search_prefix(word)
+        return node is not None and node.is_end()
 
     def startsWith(self, prefix: str) -> bool:
-        node = self.root
-        for ch in prefix:
-            if not node.contains_key(ch):
-                return False
-            node = node.get(ch)
+        node = self.search_prefix(prefix)
         return node is not None
-
 
 # Your Trie object will be instantiated and called as such:
 # obj = Trie()
