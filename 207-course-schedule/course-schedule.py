@@ -1,28 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegree = [0] * numCourses
+        indegrees = [0 for _ in range(numCourses)]
+        order = []
         graph = defaultdict(list)
 
-        for edge in prerequisites:
-            u, v = edge[0], edge[1]
-            graph[u].append(v)
-            indegree[v] += 1
+        for u , v in prerequisites:
+            indegrees[u] += 1
+            graph[v].append(u)
         
-        queue  = deque()
-        topSort = []
+        queue = []
 
         for i in range(numCourses):
-            if indegree[i] == 0:
+            if indegrees[i] == 0:
                 queue.append(i)
-        
+
         while queue:
-            node = queue.popleft()
+            node = queue.pop(0)
+            order.append(node)
 
-            topSort.append(node)
+            for neighbour in graph[node]:
+                indegrees[neighbour] -= 1
+                if indegrees[neighbour] == 0:
+                    queue.append(neighbour)
+        
 
-            for neighbor in graph[node]:
-                indegree[neighbor] -= 1
-                if indegree[neighbor] == 0:
-                    queue.append(neighbor)
-
-        return len(topSort) == numCourses
+        return len(order) == numCourses
